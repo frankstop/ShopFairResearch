@@ -1,7 +1,7 @@
 {
-  "catalog_products": 256,
-  "category_sitemap_urls": 2,
-  "elapsed_seconds": 6.19,
+  "catalog_products": 1508,
+  "category_sitemap_urls": 17,
+  "elapsed_seconds": 48.25,
   "errors": [],
   "market_reference": {
     "address": "973 Front St, Uniondale, NY 11553",
@@ -9,12 +9,12 @@
     "note": "Local market reference only; public online prices are not asserted as shelf prices for this store.",
     "store_number": "2758"
   },
-  "observed_at": "2026-07-10T16:41:03.012350Z",
+  "observed_at": "2026-07-10T16:41:45.614053Z",
   "price_scope": "public_online_catalog",
   "prior_overlap_percentage": null,
-  "product_sitemap_urls": 256,
+  "product_sitemap_urls": 1508,
   "promotions": 0,
-  "requests": 6,
+  "requests": 23,
   "schema_version": "1.0",
   "sitemap_coverage_percentage": 100.0,
   "snapshot_date": "2026-07-10",
