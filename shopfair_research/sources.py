@@ -24,10 +24,6 @@ ROBOTS_URL = f"{BASE_URL}/robots.txt"
 USER_AGENT = "ShopFairResearch/1.0 (+https://github.com/frankstop/ShopFairResearch)"
 
 
-class CollectionError(RuntimeError):
-    pass
-
-
 @dataclass
 class SourceInventory:
     category_ids: list[int]
@@ -84,6 +80,10 @@ class PoliteClient:
 
     def fetch_text(self, url: str) -> str:
         return self.fetch_bytes(url).decode("utf-8", errors="replace")
+
+
+class CollectionError(RuntimeError):
+    pass
 
 
 def verify_robots(client: PoliteClient) -> str:
@@ -160,53 +160,28 @@ def collect_catalog(
     for index, cat_id in enumerate(category_ids, 1):
         category_name = inventory.category_names.get(cat_id, "Uncategorized")
         try:
-            offset = 0
-            limit = 200
-            seen_in_category = set()
-            while True:
-                api_url = f"{BASE_URL}/api/store/products-grouped/{STORE_URL_NAME}?productCategoryIds={cat_id}&limit={limit}&offset={offset}&sort=featured"
-                try:
-                    payload_text = client.fetch_text(api_url)
-                    res = json.loads(payload_text)
-                except Exception as e:
-                    raise CollectionError(f"API fetch failed: {e}")
-                
-                categories_list = res.get("categories", [])
-                if not categories_list:
-                    break
-                
+            # Pass a huge limit to fetch everything in one shot (no limits)
+            limit = 100000
+            api_url = f"{BASE_URL}/api/store/products-grouped/{STORE_URL_NAME}?productCategoryIds={cat_id}&limit={limit}&sort=featured"
+            try:
+                payload_text = client.fetch_text(api_url)
+                res = json.loads(payload_text)
+            except Exception as e:
+                raise CollectionError(f"API fetch failed: {e}")
+            
+            categories_list = res.get("categories", [])
+            if categories_list:
                 cat_data = categories_list[0]
                 prod_list = cat_data.get("products", [])
-                if not prod_list:
-                    break
-                
-                new_added = 0
                 for p_dict in prod_list:
-                    p_id = str(p_dict.get("productId") or p_dict.get("storeProductId") or "")
-                    if p_id in seen_in_category:
-                        continue
-                    seen_in_category.add(p_id)
-                    
                     try:
                         prod_obs, promo_obs = parse_product(p_dict, category_name, observed_at)
                         existing = products.get(prod_obs.product_key)
                         products[prod_obs.product_key] = merge_products(existing, prod_obs) if existing else prod_obs
                         if promo_obs:
                             promotions[promo_obs.promotion_key] = promo_obs
-                        new_added += 1
-                      # Limit logs/warnings to keep output readable
                     except Exception as e:
                         pass
-                        
-                if new_added == 0:
-                    break
-                
-                remaining = cat_data.get("remainingProducts", 0)
-                if remaining == 0:
-                    break
-                    
-                offset += limit
-                time.sleep(client.delay_seconds)
             
             crawled_departments += 1
         except Exception as error:

@@ -9,30 +9,30 @@
   ],
   "history": [
     {
-      "available_products": 1508,
-      "average_price": 5.4,
+      "available_products": 2748,
+      "average_price": 4.99,
       "brands": 0,
       "categories": 17,
-      "median_price": 4.3,
-      "products": 1508,
+      "median_price": 3.99,
+      "products": 2748,
       "snapshot_date": "2026-07-10"
     }
   ],
   "largest_decreases": [],
   "largest_increases": [],
   "latest": {
-    "available_products": 1508,
-    "average_price": 5.4,
+    "available_products": 2748,
+    "average_price": 4.99,
     "brands": 0,
     "categories": 17,
-    "median_price": 4.3,
-    "products": 1508,
+    "median_price": 3.99,
+    "products": 2748,
     "snapshot_date": "2026-07-10"
   },
   "latest_manifest": {
-    "catalog_products": 1508,
+    "catalog_products": 2748,
     "category_sitemap_urls": 17,
-    "elapsed_seconds": 48.25,
+    "elapsed_seconds": 34.84,
     "errors": [],
     "market_reference": {
       "address": "973 Front St, Uniondale, NY 11553",
@@ -40,12 +40,12 @@
       "note": "Local market reference only; public online prices are not asserted as shelf prices for this store.",
       "store_number": "2758"
     },
-    "observed_at": "2026-07-10T16:41:45.614053Z",
+    "observed_at": "2026-07-10T16:49:52.636986Z",
     "price_scope": "public_online_catalog",
     "prior_overlap_percentage": null,
-    "product_sitemap_urls": 1508,
+    "product_sitemap_urls": 2748,
     "promotions": 0,
-    "requests": 23,
+    "requests": 20,
     "schema_version": "1.0",
     "sitemap_coverage_percentage": 100.0,
     "snapshot_date": "2026-07-10",
@@ -55,9 +55,9 @@
   "latest_promotions": [],
   "manifest_history": [
     {
-      "catalog_products": 1508,
+      "catalog_products": 2748,
       "category_sitemap_urls": 17,
-      "elapsed_seconds": 48.25,
+      "elapsed_seconds": 34.84,
       "errors": [],
       "market_reference": {
         "address": "973 Front St, Uniondale, NY 11553",
@@ -65,12 +65,12 @@
         "note": "Local market reference only; public online prices are not asserted as shelf prices for this store.",
         "store_number": "2758"
       },
-      "observed_at": "2026-07-10T16:41:45.614053Z",
+      "observed_at": "2026-07-10T16:49:52.636986Z",
       "price_scope": "public_online_catalog",
       "prior_overlap_percentage": null,
-      "product_sitemap_urls": 1508,
+      "product_sitemap_urls": 2748,
       "promotions": 0,
-      "requests": 23,
+      "requests": 20,
       "schema_version": "1.0",
       "sitemap_coverage_percentage": 100.0,
       "snapshot_date": "2026-07-10",
@@ -101,16 +101,16 @@
   "top_brands": [],
   "top_categories": [
     {
-      "name": "Dairy & Refrigerated",
-      "products": 200
-    },
-    {
       "name": "Pantry",
-      "products": 200
+      "products": 1160
     },
     {
       "name": "Beverages",
-      "products": 200
+      "products": 410
+    },
+    {
+      "name": "Dairy & Refrigerated",
+      "products": 275
     },
     {
       "name": "Frozen Foods",
