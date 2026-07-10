@@ -144,6 +144,19 @@ def discover_sources(client: PoliteClient) -> SourceInventory:
     raise CollectionError("No categories or aisles discovered from storefront or API")
 
 
+def fetch_target_catalog_size(client: PoliteClient) -> int:
+    try:
+        url = f"{BASE_URL}/api/store/products/{STORE_URL_NAME}?limit=1&offset=0"
+        response_text = client.fetch_text(url)
+        res = json.loads(response_text)
+        prods = len(res.get("products", []))
+        remaining = res.get("remaining", 0)
+        return prods + remaining
+    except Exception as e:
+        LOGGER.warning("Could not fetch target catalog size: %s", e)
+        return 0
+
+
 def collect_catalog(
     client: PoliteClient,
     inventory: SourceInventory,

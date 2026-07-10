@@ -9,7 +9,7 @@ import time
 from .analysis import build_summary
 from .models import SnapshotManifest
 from .report import write_reports
-from .sources import PoliteClient, collect_catalog, discover_sources, verify_robots
+from .sources import PoliteClient, collect_catalog, discover_sources, verify_robots, fetch_target_catalog_size
 from .storage import read_jsonl_gz, snapshot_paths, write_json_atomic, write_jsonl_gz_atomic
 
 
@@ -23,6 +23,7 @@ def validate_collection(
     previous_path: Path | None,
     minimum_products: int,
     minimum_department_coverage: float,
+    target_catalog_size: int = 0,
 ) -> tuple[float, float | None, float]:
     product_keys = {product.product_key for product in products}
     coverage = crawled_departments / max(total_departments, 1) * 100
@@ -33,6 +34,16 @@ def validate_collection(
         raise ValueError(f"Department coverage {coverage:.1f}% is below {minimum_department_coverage:.1f}%")
     if valid_prices < 95:
         raise ValueError(f"Valid positive price rate {valid_prices:.1f}% is below 95%")
+        
+    # Verify complete scan of the entire storefront catalog
+    if target_catalog_size > 0:
+        actual_ratio = len(product_keys) / target_catalog_size * 100
+        if len(product_keys) < target_catalog_size * 0.95:
+            raise ValueError(
+                f"Crawl integrity failed: Collected {len(product_keys):,} products but the store target catalog size "
+                f"is {target_catalog_size:,} (coverage {actual_ratio:.1f}% is below 95% threshold)"
+            )
+            
     overlap: float | None = None
     if previous_path:
         previous = {row["product_key"] for row in read_jsonl_gz(previous_path)}
@@ -58,6 +69,12 @@ def run_pipeline(
     client = PoliteClient(delay_seconds=delay_seconds)
     verify_robots(client)
     inventory = discover_sources(client)
+    
+    # Fetch target catalog size from the products API
+    target_catalog_size = fetch_target_catalog_size(client) if max_categories is None else 0
+    if target_catalog_size > 0:
+        LOGGER.warning("Target storefront catalog size discovered: %s products", target_catalog_size)
+    
     products, promotions, crawled_depts, catalog_errors = collect_catalog(
         client, inventory, observed_at, max_categories=max_categories
     )
@@ -77,6 +94,7 @@ def run_pipeline(
         previous_path,
         minimum_products,
         minimum_department_coverage,
+        target_catalog_size,
     )
     manifest = SnapshotManifest(
         snapshot_date=snapshot_date,
@@ -84,7 +102,7 @@ def run_pipeline(
         status="healthy",
         catalog_products=len(products),
         promotions=len(promotions),
-        product_sitemap_urls=len(products),  # mapped to total unique products
+        product_sitemap_urls=target_catalog_size if target_catalog_size > 0 else len(products),
         category_sitemap_urls=total_depts,   # mapped to total departments
         sitemap_coverage_percentage=coverage, # mapped to department coverage
         prior_overlap_percentage=overlap,
