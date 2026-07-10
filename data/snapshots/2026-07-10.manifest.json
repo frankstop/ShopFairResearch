@@ -1,0 +1,23 @@
+{
+  "catalog_products": 256,
+  "category_sitemap_urls": 2,
+  "elapsed_seconds": 6.19,
+  "errors": [],
+  "market_reference": {
+    "address": "973 Front St, Uniondale, NY 11553",
+    "name": "Shop Fair of Uniondale",
+    "note": "Local market reference only; public online prices are not asserted as shelf prices for this store.",
+    "store_number": "2758"
+  },
+  "observed_at": "2026-07-10T16:41:03.012350Z",
+  "price_scope": "public_online_catalog",
+  "prior_overlap_percentage": null,
+  "product_sitemap_urls": 256,
+  "promotions": 0,
+  "requests": 6,
+  "schema_version": "1.0",
+  "sitemap_coverage_percentage": 100.0,
+  "snapshot_date": "2026-07-10",
+  "status": "healthy",
+  "valid_price_percentage": 100.0
+}

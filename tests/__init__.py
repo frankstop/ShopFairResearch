@@ -1,0 +1,1 @@
+# ShopFairResearch tests

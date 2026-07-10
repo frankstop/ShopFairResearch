@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shopfair-research"
+version = "1.0.0"
+description = "Anonymous longitudinal ShopFair catalog price research"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Frank Valdez" }]
+dependencies = []
+
+[project.scripts]
+shopfair-research = "shopfair_research.pipeline:main"
+
+[tool.setuptools]
+packages = ["shopfair_research"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

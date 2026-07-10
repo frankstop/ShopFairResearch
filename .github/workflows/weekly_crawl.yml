@@ -1,0 +1,66 @@
+name: Weekly Catalog Pipeline
+
+on:
+  schedule:
+    - cron: "0 6 * * 0"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Run a full collection or verify the checked-in baseline only"
+        required: true
+        default: verify
+        type: choice
+        options:
+          - verify
+          - collect
+
+concurrency:
+  group: weekly-shopfair-catalog
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  collect-analyze-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install package
+        run: python -m pip install -e .
+
+      - name: Collect and analyze public catalog
+        if: github.event_name == 'schedule' || inputs.mode == 'collect'
+        run: python -m shopfair_research run --verbose
+
+      - name: Run verification suite
+        run: |
+          python -m unittest discover -v
+          python scripts/check.py
+
+      - name: Write workflow summary
+        if: always()
+        run: python scripts/workflow_summary.py >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit healthy raw and derived outputs
+        if: github.event_name == 'schedule' || inputs.mode == 'collect'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/snapshots docs/index.html docs/weekly-report.html docs/data/weekly-summary.json
+          if git diff --staged --quiet; then
+            git status
+            echo "No new snapshot or report changes."
+          else
+            git commit -m "data: weekly Shop Fair catalog $(date -u +%F)"
+            git push
+          fi
