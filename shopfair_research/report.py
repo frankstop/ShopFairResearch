@@ -95,7 +95,17 @@ def render_weekly_report(summary: dict[str, Any]) -> str:
     anomaly_rows = summary.get("anomalies", [])
     anomaly_html = _movement_table(anomaly_rows)
     return f"""<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en"><head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RSVR6Y389R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-RSVR6Y389R');
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Automated weekly Shop Fair public catalog price intelligence and anomaly analysis.">
 <title>Weekly Price Intelligence | Shop Fair Research</title><style>{CSS}</style></head>
 <body><a class="skip" href="#main">Skip to analysis</a><nav class="shell nav" aria-label="Primary"><a href="index.html">Overview</a><a href="weekly-report.html" aria-current="page">Weekly analysis</a><a href="data/weekly-summary.json">Data contract</a><a href="https://github.com/frankstop/ShopFairResearch">Source</a></nav>
@@ -118,7 +128,17 @@ def render_index(summary: dict[str, Any]) -> str:
     manifest = summary.get("latest_manifest") or {}
     baseline = summary.get("comparison") is None
     state = "Baseline established" if baseline else "Current weekly comparison"
-    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Longitudinal public Shop Fair catalog price research."><title>Shop Fair Research</title><style>{CSS}</style></head>
+    return f"""<!doctype html><html lang="en"><head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RSVR6Y389R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-RSVR6Y389R');
+</script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Longitudinal public Shop Fair catalog price research."><title>Shop Fair Research</title><style>{CSS}</style></head>
 <body><a class="skip" href="#main">Skip to content</a><nav class="shell nav" aria-label="Primary"><a href="index.html" aria-current="page">Overview</a><a href="weekly-report.html">Weekly analysis</a><a href="data/weekly-summary.json">Data contract</a><a href="https://github.com/frankstop/ShopFairResearch">Source</a></nav>
 <header class="shell hero"><div class="eyebrow">Automated grocery price research</div><h1>Shop Fair, observed over time.</h1><p>A transparent weekly pipeline that turns anonymous public catalog pages into durable price history, assortment signals, promotion tracking, and anomaly review.</p><div class="notice"><strong>Local context:</strong> Shop Fair of Uniondale (store #2758) at 973 Front St, Uniondale, NY establishes the project’s market relevance. The collected values are public online prices and may differ from that store’s shelves.</div></header>
 <main id="main" class="shell"><span class="tag">{escape(state)}</span><section class="metrics">{_metric("Products",f'{latest["products"]:,}')}{_metric("Department coverage",f'{float(manifest.get("sitemap_coverage_percentage",0)):.1f}%')}{_metric("Categories",f'{latest["categories"]:,}')}{_metric("Median price",_money(latest["median_price"]))}</section>
