@@ -1,11 +1,51 @@
 {
   "anomalies": [],
   "brand_trends": [],
-  "category_trends": [],
-  "comparison": null,
-  "comparisons": [],
+  "category_trends": [
+    {
+      "average_change_percentage": -8.53,
+      "changed_products": 1,
+      "median_change_percentage": -8.53,
+      "name": "Frozen Foods"
+    }
+  ],
+  "comparison": {
+    "anomalies": 0,
+    "availability_changes": 0,
+    "average_price_change_percentage": -8.53,
+    "coverage_percentage": 94.69,
+    "from_date": "2026-07-10",
+    "matched_products": 2602,
+    "median_price_change_percentage": -8.53,
+    "new_products": 103,
+    "price_changes": 1,
+    "price_decreases": 1,
+    "price_increases": 0,
+    "removed_products": 146,
+    "to_date": "2026-07-12",
+    "unchanged_prices": 2601
+  },
+  "comparisons": [
+    {
+      "anomalies": 0,
+      "availability_changes": 0,
+      "average_price_change_percentage": -8.53,
+      "coverage_percentage": 94.69,
+      "from_date": "2026-07-10",
+      "matched_products": 2602,
+      "median_price_change_percentage": -8.53,
+      "new_products": 103,
+      "price_changes": 1,
+      "price_decreases": 1,
+      "price_increases": 0,
+      "removed_products": 146,
+      "to_date": "2026-07-12",
+      "unchanged_prices": 2601
+    }
+  ],
   "generated_from": [
-    "2026-07-10.catalog.jsonl.gz"
+    "2026-07-10.catalog.jsonl.gz",
+    "2026-07-12.catalog.jsonl.gz"
   ],
   "history": [
     {
@@ -16,23 +56,45 @@
       "median_price": 3.99,
       "products": 2748,
       "snapshot_date": "2026-07-10"
+    },
+    {
+      "available_products": 2705,
+      "average_price": 4.88,
+      "brands": 0,
+      "categories": 17,
+      "median_price": 3.99,
+      "products": 2705,
+      "snapshot_date": "2026-07-12"
     }
   ],
-  "largest_decreases": [],
+  "largest_decreases": [
+    {
+      "brand": null,
+      "categories": [
+        "Frozen Foods"
+      ],
+      "change": -0.4,
+      "change_percentage": -8.53,
+      "current_price": 4.29,
+      "name": "Life Every Day Mixed Vegetables, Fresh Frozen - 32 Ounces",
+      "previous_price": 4.69,
+      "product_key": "/item/life-every-day-mixed-vegetables-fresh-frozen-32-ounces/12898616"
+    }
+  ],
   "largest_increases": [],
   "latest": {
-    "available_products": 2748,
-    "average_price": 4.99,
+    "available_products": 2705,
+    "average_price": 4.88,
     "brands": 0,
     "categories": 17,
     "median_price": 3.99,
-    "products": 2748,
-    "snapshot_date": "2026-07-10"
+    "products": 2705,
+    "snapshot_date": "2026-07-12"
   },
   "latest_manifest": {
-    "catalog_products": 2748,
+    "catalog_products": 2705,
     "category_sitemap_urls": 17,
-    "elapsed_seconds": 39.83,
+    "elapsed_seconds": 41.17,
     "errors": [],
     "market_reference": {
       "address": "973 Front St, Uniondale, NY 11553",
@@ -40,15 +102,15 @@
       "note": "Local market reference only; public online prices are not asserted as shelf prices for this store.",
       "store_number": "2758"
     },
-    "observed_at": "2026-07-10T16:52:58.186291Z",
+    "observed_at": "2026-07-12T08:15:39.757048Z",
     "price_scope": "public_online_catalog",
-    "prior_overlap_percentage": null,
-    "product_sitemap_urls": 2748,
+    "prior_overlap_percentage": 94.69,
+    "product_sitemap_urls": 2705,
     "promotions": 0,
     "requests": 21,
     "schema_version": "1.0",
     "sitemap_coverage_percentage": 100.0,
-    "snapshot_date": "2026-07-10",
+    "snapshot_date": "2026-07-12",
     "status": "healthy",
     "valid_price_percentage": 100.0
   },
@@ -76,6 +138,29 @@
       "snapshot_date": "2026-07-10",
       "status": "healthy",
       "valid_price_percentage": 100.0
+    },
+    {
+      "catalog_products": 2705,
+      "category_sitemap_urls": 17,
+      "elapsed_seconds": 41.17,
+      "errors": [],
+      "market_reference": {
+        "address": "973 Front St, Uniondale, NY 11553",
+        "name": "Shop Fair of Uniondale",
+        "note": "Local market reference only; public online prices are not asserted as shelf prices for this store.",
+        "store_number": "2758"
+      },
+      "observed_at": "2026-07-12T08:15:39.757048Z",
+      "price_scope": "public_online_catalog",
+      "prior_overlap_percentage": 94.69,
+      "product_sitemap_urls": 2705,
+      "promotions": 0,
+      "requests": 21,
+      "schema_version": "1.0",
+      "sitemap_coverage_percentage": 100.0,
+      "snapshot_date": "2026-07-12",
+      "status": "healthy",
+      "valid_price_percentage": 100.0
     }
   ],
   "methodology": {
@@ -84,7 +169,15 @@
     "missing_values": "Preserved; never interpolated",
     "price_scope": "Public online catalog, not asserted as Uniondale shelf pricing"
   },
-  "previous": null,
+  "previous": {
+    "available_products": 2748,
+    "average_price": 4.99,
+    "brands": 0,
+    "categories": 17,
+    "median_price": 3.99,
+    "products": 2748,
+    "snapshot_date": "2026-07-10"
+  },
   "promotion_entries": [],
   "promotion_exits": [],
   "promotion_history": [
@@ -94,31 +187,38 @@
       "promotions": 0,
       "promotions_with_regular_price": 0,
       "snapshot_date": "2026-07-10"
+    },
+    {
+      "average_discount_percentage": 0.0,
+      "median_discount_percentage": 0.0,
+      "promotions": 0,
+      "promotions_with_regular_price": 0,
+      "snapshot_date": "2026-07-12"
     }
   ],
   "schema_version": "1.0",
-  "status": "baseline_established",
+  "status": "weekly_comparison_available",
   "top_brands": [],
   "top_categories": [
     {
       "name": "Pantry",
-      "products": 1160
+      "products": 1161
     },
     {
       "name": "Beverages",
-      "products": 410
+      "products": 413
     },
     {
       "name": "Dairy & Refrigerated",
-      "products": 275
+      "products": 270
     },
     {
       "name": "Frozen Foods",
-      "products": 179
+      "products": 182
     },
     {
       "name": "Household",
-      "products": 162
+      "products": 166
     },
     {
       "name": "Fruits & Veggies",
@@ -126,23 +226,19 @@
     },
     {
       "name": "Breads & Bakery",
-      "products": 81
+      "products": 82
     },
     {
       "name": "Meat",
       "products": 57
     },
     {
-      "name": "Beer, Wine & Spirits",
-      "products": 56
-    },
-    {
       "name": "Deli",
-      "products": 55
+      "products": 54
     },
     {
       "name": "Baby",
-      "products": 46
+      "products": 49
     },
     {
       "name": "Sweets",
@@ -150,15 +246,19 @@
     },
     {
       "name": "Pets",
-      "products": 35
+      "products": 34
     },
     {
       "name": "Health & Wellness",
-      "products": 30
+      "products": 33
     },
     {
       "name": "Beauty & Cosmetics",
-      "products": 25
+      "products": 26
+    },
+    {
+      "name": "Seafood",
+      "products": 4
     }
   ],
   "volatility_4_week": [],
